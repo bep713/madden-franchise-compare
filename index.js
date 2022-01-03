@@ -4,8 +4,8 @@ const Franchise = require('madden-franchise');
 // TEST THE COMPARISON =======================================================================================
 const { createHash } = require('crypto');
 
-let franchise1 = new Franchise('SOURCE_FILE_HERE');
-let franchise2 = new Franchise('COMPARE_FILE_HERE');
+let franchise1 = new Franchise('C:\\Users\\Matt\\Documents\\Madden NFL 22\\saves\\CAREER-COMPARETEST');
+let franchise2 = new Franchise('C:\\Users\\Matt\\Documents\\Madden NFL 22\\saves\\CAREER-COMPARETEST-AUTOSAVE');
 
 let hashTables = {};
 let changedTables = [];
@@ -24,10 +24,12 @@ franchise2.on('ready', async () => {
             if (file1Hash !== file2Hash) {
                 changedTables.push(table.header.tableId);   
             }
+        } else {
+            console.log(`Table ${table.name} does not exist in the 2nd file.`);
         }
     });
 
-    changedTables.forEach(async (tableId) => {
+    for (const tableId of changedTables) {
         const f1Table = franchise1.getTableById(tableId);
         const f2Table = franchise2.getTableById(tableId);
 
@@ -55,7 +57,7 @@ franchise2.on('ready', async () => {
         });
 
         console.log('');
-    });
+    }
 });
 
 function getHashFromBuffer(buf) {
