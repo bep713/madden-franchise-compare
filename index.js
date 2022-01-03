@@ -17,10 +17,13 @@ franchise2.on('ready', async () => {
 
         // Get hash for table in file 2
         const f2Table = franchise2.getTableById(table.header.tableId);
-        const file2Hash = getHashFromBuffer(f2Table.data);
 
-        if (file1Hash !== file2Hash) {
-            changedTables.push(table.header.tableId);   
+        if (f2Table) {
+            const file2Hash = getHashFromBuffer(f2Table.data);
+    
+            if (file1Hash !== file2Hash) {
+                changedTables.push(table.header.tableId);   
+            }
         }
     });
 
