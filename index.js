@@ -40,7 +40,7 @@ async function compareFiles() {
                 changedTables.push(table.header.tableId);   
             }
         } else {
-            console.log(`Table ${table.name} does not exist in the 2nd file.`);
+            console.log(`Table (${table.header.tableId}) ${table.name} does not exist in the 2nd file.`);
         }
     });
     
@@ -56,18 +56,24 @@ async function compareFiles() {
             const file1Hash = getHashFromBuffer(record.hexData);
             
             const f2Record = f2Table.records[record.index];
-            const file2Hash = getHashFromBuffer(f2Record.hexData);
-    
-            if (file1Hash !== file2Hash) {
-                console.log(`\tRecord #${record.index}`);
-    
-                record.fields.forEach((field, index) => {
-                    const f2Field = f2Record.fields[index];
-    
-                    if (field.value !== f2Field.value) {
-                        console.log(`\t\tField: ${field.key}\n\t\t\tFile 1: ${field.value}\n\t\t\tFile 2: ${f2Field.value}`);
-                    }
-                });
+
+            if (f2Record) {
+                const file2Hash = getHashFromBuffer(f2Record.hexData);
+        
+                if (file1Hash !== file2Hash) {
+                    console.log(`\tRecord #${record.index}`);
+        
+                    record.fields.forEach((field, index) => {
+                        const f2Field = f2Record.fields[index];
+        
+                        if (field.value !== f2Field.value) {
+                            console.log(`\t\tField: ${field.key}\n\t\t\tFile 1: ${field.value}\n\t\t\tFile 2: ${f2Field.value}`);
+                        }
+                    });
+                }
+            }
+            else {
+                console.log(`\tRecord #${record.index} does not exist in the 2nd file.`);
             }
         });
     
