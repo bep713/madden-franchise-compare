@@ -9,7 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "madden-franchise": "^2.2.3"
+    "madden-franchise": "^2.2.5"
   },
   "devDependencies": {
     "chai": "^4.3.4",

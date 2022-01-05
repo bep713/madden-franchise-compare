@@ -50,7 +50,27 @@ async function compareFiles() {
     
         await Promise.all([f1Table.readRecords(), f2Table.readRecords()]);
     
-        console.log(`${f1Table.name} - ${f1Table.header.tableId}`);
+        console.log(`(${f1Table.header.tableId}) ${f1Table.name}`);
+
+        const f1HeaderHash = getHashFromBuffer(f1Table.data.slice(0, f1Table.header.headerSize));
+        const f2HeaderHash = getHashFromBuffer(f2Table.data.slice(0, f2Table.header.headerSize));
+
+        if (f1HeaderHash !== f2HeaderHash) {
+            console.log(`\tHeaders are different.`);
+            
+            Object.keys(f1Table.header).forEach((key) => {
+                if (f1Table.header[key] !== f2Table.header[key]) {
+                    console.log(`\t\t${key}\n\t\t\tFile 1: ${f1Table.header[key]}\n\t\t\tFile 2: ${f2Table.header[key]}`);
+                }
+            });
+        }
+
+        f1Table.arraySizes.forEach((arraySize, index) => {
+            const f2ArraySize = f2Table.arraySizes[index];
+            if (arraySize !== f2ArraySize) {
+                console.log(`\tRecord #${index}: Array size is different.\n\t\tFile 1: ${arraySize}\n\t\tFile 2: ${f2ArraySize}`);
+            }
+        })
     
         f1Table.records.forEach((record) => {
             const file1Hash = getHashFromBuffer(record.hexData);
