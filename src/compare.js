@@ -305,6 +305,10 @@ module.exports = async (basePath, comparePath, options) => {
             logger.info(`*** Showing minimal output. ***`);
         }
 
+        if (options.smartReferences) {
+            logger.info(`*** Using smart references. ***`);
+        }
+
         if (errorTables.length > 0) {
             logger.info(`\n*** Errors (${errorTables.length} total) ***`);
 
