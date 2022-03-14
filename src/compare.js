@@ -253,6 +253,9 @@ module.exports = async (basePath, comparePath, options) => {
             }
 
             changes.push(change);
+
+            f1Table.records = null;
+            f2Table.records = null;
         }
 
         console.log('Building output file...');
@@ -294,6 +297,10 @@ module.exports = async (basePath, comparePath, options) => {
             logger.info(`*** Ignoring table fields. ***`);
         }
 
+        if (options.ignoreSchema) {
+            logger.info(`*** Ignoring schema differences in table headers. ***`);
+        }
+
         if (options.minimalOutput) {
             logger.info(`*** Showing minimal output. ***`);
         }
@@ -329,7 +336,7 @@ module.exports = async (basePath, comparePath, options) => {
                 if (change.arraySizeDiffs.length > 0) {
                     logger.info(`\tArray Size Diffs:`)
                     change.arraySizeDiffs.forEach((diff) => {
-                        logger.info(`\t\tRecord #${index}:\n\t\t\tFile 1: ${arraySize}\n\t\t\tFile 2: ${f2ArraySize}`);
+                        logger.info(`\t\tRecord #${diff.index}:\n\t\t\tFile 1: ${diff.file1}\n\t\t\tFile 2: ${diff.file2}`);
                     });
                 }
             }
