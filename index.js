@@ -4,7 +4,7 @@ const compareTool = require('./src/compare');
 program
     .name('FranDiff')
     .description('Compares two franchise files (saves or FTCs) for changes.')
-    .version('0.2')
+    .version('0.3')
 
 program.command('compare')
     .description('Compares two files for changes.')
