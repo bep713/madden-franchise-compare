@@ -132,8 +132,9 @@ module.exports = async (basePath, comparePath, options) => {
                 const f1HeaderHash = getHashFromBuffer(f1Table.data.slice(0, f1Table.header.headerSize));
                 const f2HeaderHash = getHashFromBuffer(f2Table.data.slice(0, f2Table.header.headerSize));
     
+                change.headerDiffs = [];
+                
                 if (f1HeaderHash !== f2HeaderHash) {
-                    change.headerDiffs = [];
 
                     Object.keys(f1Table.header).filter((key) => {
                        return headerKeysToIgnore.indexOf(key) < 0;

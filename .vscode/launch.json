@@ -14,14 +14,14 @@
             "program": "${workspaceFolder}\\index.js",
             "args": [
                 "compare", 
-                "-m",
                 "-s", "C:\\Users\\Matt\\AppData\\Roaming\\madden-franchise-editor\\schemas",
-                "--ignore-schema",
+                // "--ignore-schema",
                 // "--ignore-fields",
                 "--smart-references",
-                "D:\\Projects\\Madden 22\\FranTkData\\Franchise-Tuning-binary.FTC", 
-                // "C:\\Users\\Matt\\Documents\\Madden NFL 22\\saves\\CAREER-STARTTODAY", 
-                "C:\\Users\\Matt\\Downloads\\Franchise-Tuning-binary.FTC"]
+                "D:\\Projects\\Madden 22\\Update issue\\Tuning\\Tuning-default.FTC", 
+                "D:\\Projects\\Madden 22\\Update issue\\Tuning\\Tuning-after-edit.FTC",
+                "--output", ".\\test\\frandiff.txt"
+            ]
         }
     ]
 }
