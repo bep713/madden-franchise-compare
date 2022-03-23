@@ -333,7 +333,7 @@ module.exports = async (basePath, comparePath, options) => {
             logger.info(`\n*** Errors (${errorTables.length} total) ***`);
 
             errorTables.forEach((table) => {
-                logger.info(`(${table.tableId}) ${table.name} - problem reading the table. Err: ${table.err}`);
+                logger.info(`\t(${table.tableId}) ${table.name} - problem reading the table. Err: ${table.err}`);
             });
         }
 
@@ -341,7 +341,7 @@ module.exports = async (basePath, comparePath, options) => {
             logger.info(`\n*** Missing tables (${missingTables.length} total) ***`);
     
             missingTables.forEach((table) => {
-                logger.info(`Table (${table.file1TableId}) ${table.name} does not exist in file 2.`);
+                logger.info(`\tTable (${table.file1TableId}) ${table.name} does not exist in file 2.`);
             });
         }
 
@@ -349,7 +349,7 @@ module.exports = async (basePath, comparePath, options) => {
             logger.info(`\n*** Unchecked tables (${uncheckedTables.length} total) ***`);
 
             uncheckedTables.forEach((table) => {
-                logger.info(`Table (${table.header.tableId}) ${table.name} - no unique ID found.`);
+                logger.info(`\tTable (${table.header.tableId}) ${table.name} - no unique ID found.`);
             });
         }
 
