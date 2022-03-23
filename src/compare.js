@@ -54,7 +54,7 @@ module.exports = async (basePath, comparePath, options) => {
         });
     });
 
-    compareFiles();
+    return compareFiles();
 
     async function compareFiles() {
         console.log('Loading files...');
@@ -63,12 +63,26 @@ module.exports = async (basePath, comparePath, options) => {
         let tableIdMap = [];
         let errorTables = [];
         let missingTables = [];
+        let uncheckedTables = [];
 
         await Promise.all([f1Promise, f2Promise]);
         
         franchise1.tables.forEach((table) => {
             // Get hash for table in file 1
             const file1Hash = getHashFromBuffer(table.data);
+
+            // Rename the first table if it's null so that it shows properly
+            // in a text editor.
+            if (table.name === '\u0000') {
+                table.name = ' ';
+            }
+
+            // Dynamically generated tables created by the game
+            // will not have a unique id, so we have no way to track them.
+            if (table.header.tablePad1 === 0) {
+                uncheckedTables.push(table);
+                return;
+            }
         
             // Get hash for table in file 2
             const f2Table = getTableByPad1(franchise2.tables, table.header.tablePad1);
@@ -103,8 +117,14 @@ module.exports = async (basePath, comparePath, options) => {
             headerKeysToIgnore.push('data1Type');
             headerKeysToIgnore.push('data1Unknown1');
         }
+
+        const tablesToCheckForChanges = changedTables.filter((tableId) => {
+            return !(missingTables.find((missingTable) => {
+                return missingTable.file1TableId === tableId;
+            }));
+        });
         
-        for (const tableId of changedTables) {
+        for (const tableId of tablesToCheckForChanges) {
             const f1Table = franchise1.getTableById(tableId);
             const f2Table = getTableByPad1(franchise2.tables, f1Table.header.tablePad1);
 
@@ -325,6 +345,14 @@ module.exports = async (basePath, comparePath, options) => {
             });
         }
 
+        if (uncheckedTables.length > 0) {
+            logger.info(`\n*** Unchecked tables (${uncheckedTables.length} total) ***`);
+
+            uncheckedTables.forEach((table) => {
+                logger.info(`Table (${table.header.tableId}) ${table.name} - no unique ID found.`);
+            });
+        }
+
         logger.info(`\n*** Changes (${filteredChanges.length} total) ***`);
 
         filteredChanges.forEach((change) => {
@@ -364,6 +392,7 @@ module.exports = async (basePath, comparePath, options) => {
         });
 
         console.log(`Done.\nOutput saved to ${outputPath}`);
+        return filteredChanges;
     };
 
     function getHashFromBuffer(buf) {

@@ -11,16 +11,17 @@
             "skipFiles": [
                 "<node_internals>/**"
             ],
+            // "program": "${file}"
             "program": "${workspaceFolder}\\index.js",
             "args": [
                 "compare", 
                 // "-m",
                 "-s", "C:\\Users\\Matt\\AppData\\Roaming\\madden-franchise-editor\\schemas",
-                "--ignore-schema",
+                // "--ignore-schema",
                 // "--ignore-fields",
                 "--smart-references",
-                "D:\\Projects\\Madden 22\\Update issue\\Franchise\\Franchise-original.FTC", 
-                "D:\\Projects\\Madden 22\\Update issue\\Franchise\\Franchise-after-edit.FTC",
+                "C:\\Users\\Matt\\Downloads\\CAREER-FILEONE", 
+                "C:\\Users\\Matt\\Downloads\\CAREER-FILETWO",
                 "--output", ".\\test\\frandiff.txt"
             ]
         }
