@@ -11,7 +11,7 @@
   "license": "ISC",
   "dependencies": {
     "commander": "^9.0.0",
-    "madden-franchise": "^3.2.5",
+    "madden-franchise": "^3.4.1",
     "winston": "^3.6.0"
   },
   "devDependencies": {
