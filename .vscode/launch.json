@@ -5,7 +5,7 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "type": "pwa-node",
+            "type": "node",
             "request": "launch",
             "name": "Launch Program",
             "skipFiles": [
@@ -23,6 +23,29 @@
                 "C:\\Users\\Matt\\Downloads\\CAREER-FILEONE", 
                 "C:\\Users\\Matt\\Downloads\\CAREER-FILETWO",
                 "--output", ".\\test\\frandiff.txt"
+            ]
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Merge",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            // "program": "${file}"
+            "program": "${workspaceFolder}\\index.js",
+            "args": [
+                "merge", 
+                // "-m",
+                "-s", "C:\\Users\\Matt\\AppData\\Roaming\\madden-franchise-editor\\schemas",
+                // "--ignore-schema",
+                // "--ignore-fields",
+                "--ignore-header",
+                "--smart-references",
+                "old-filepath-here", 
+                "new-filepath-here",
+                "--modified", "modified-filepath-here",
+                "-o", "output-filepath-here"
             ]
         }
     ]

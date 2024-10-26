@@ -130,8 +130,9 @@ module.exports = async (basePath, comparePath, options) => {
 
             let change = {
                 table: f1Table.name,
+                uniqueId: f1Table.header.tablePad1,
                 file1TableId: tableId,
-                file2TableId: f2Table.header.tableId
+                file2TableId: f2Table.header.tableId,
             };
         
             try {
@@ -202,8 +203,8 @@ module.exports = async (basePath, comparePath, options) => {
     
                             const fieldDiffs = [];
                 
-                            record.fields.forEach((field, index) => {
-                                const f2Field = f2Record.fields[index];
+                            record.fieldsArray.forEach((field, index) => {
+                                const f2Field = f2Record.fieldsArray[index];
                                 let isDifferent = false;
                 
                                 if (field.value !== f2Field.value) {
@@ -232,18 +233,23 @@ module.exports = async (basePath, comparePath, options) => {
                                         let file1Value = field.value;
                                         let file2Value = f2Field.value;
 
+                                        let file1ExtraValue = '';
+                                        let file2ExtraValue = '';
+
                                         if (field.isReference) {
                                             const f1Reference = utilService.getReferenceData(field.value);
                                             const f2Reference = utilService.getReferenceData(f2Field.value);
 
-                                            file1Value += ` (ID: ${f1Reference.tableId}, Row: ${f1Reference.rowNumber})`;
-                                            file2Value += ` (ID: ${f2Reference.tableId}, Row: ${f2Reference.rowNumber})`;
+                                            file1ExtraValue = `(ID: ${f1Reference.tableId}, Row: ${f1Reference.rowNumber})`;
+                                            file2ExtraValue = `(ID: ${f2Reference.tableId}, Row: ${f2Reference.rowNumber})`;
                                         }
 
                                         fieldDiffs.push({
                                             key: field.key,
                                             file1: file1Value,
-                                            file2: file2Value
+                                            file2: file2Value,
+                                            file1ExtraValue: file1ExtraValue,
+                                            file2ExtraValue: file2ExtraValue
                                         });
                                     }
                                     
@@ -384,7 +390,7 @@ module.exports = async (basePath, comparePath, options) => {
                         logger.info(`\t\tRecord #${recordDiff.index}:`);
 
                         recordDiff.fieldDiffs.forEach((fieldDiff) => {
-                            logger.info(`\t\t\tField: ${fieldDiff.key}\n\t\t\t\tFile 1: ${fieldDiff.file1}\n\t\t\t\tFile 2: ${fieldDiff.file2}`);
+                            logger.info(`\t\t\tField: ${fieldDiff.key}\n\t\t\t\tFile 1: ${fieldDiff.file1} ${fieldDiff.file1ExtraValue}\n\t\t\t\tFile 2: ${fieldDiff.file2} ${fieldDiff.file2ExtraValue}`);
                         });
                     }
                 });
