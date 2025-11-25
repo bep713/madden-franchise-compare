@@ -1,6 +1,6 @@
 const Franchise = require('madden-franchise');
+const { utilService } = require('madden-franchise');
 const { createLogger, format, transports } = require('winston');
-const utilService = require('madden-franchise/services/utilService');
 
 const compare = require('./compare');
 

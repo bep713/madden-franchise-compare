@@ -1,17 +1,17 @@
 {
   "name": "madden-franchise-compare",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "",
   "bin": "index.js",
   "main": "index.js",
   "scripts": {
-    "pack": "pkg -t node14-win-x64 -o dist/frandiff.exe --compress GZip ."
+    "pack": "pkg -t latest-win-x64 -o dist/frandiff.exe --compress GZip ."
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "commander": "^9.0.0",
-    "madden-franchise": "^3.4.1",
+    "madden-franchise": "^4.1.6",
     "winston": "^3.6.0"
   },
   "devDependencies": {

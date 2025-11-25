@@ -2,8 +2,7 @@ const fs = require('fs');
 const { createLogger, format, transports } = require('winston');
 const { createHash } = require('crypto');
 
-const Franchise = require('madden-franchise');
-const utilService = require('madden-franchise/services/utilService');
+const { FranchiseFile: Franchise, utilService } = require('madden-franchise');
 
 module.exports = async (basePath, comparePath, options) => {
     let outputPath = options.output ? options.output : 'frandiff.txt';
@@ -207,7 +206,7 @@ module.exports = async (basePath, comparePath, options) => {
                                 const f2Field = f2Record.fieldsArray[index];
                                 let isDifferent = false;
                 
-                                if (field.value !== f2Field.value) {
+                                if (field?.value && f2Field?.value && field.value !== f2Field.value) {
                                     if (field.isReference && options.smartReferences) {
                                         const f1Reference = utilService.getReferenceData(field.value);
                                         const f2Reference = utilService.getReferenceData(f2Field.value);

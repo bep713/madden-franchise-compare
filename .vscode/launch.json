@@ -20,8 +20,8 @@
                 // "--ignore-schema",
                 // "--ignore-fields",
                 "--smart-references",
-                "C:\\Users\\Matt\\Downloads\\CAREER-FILEONE", 
-                "C:\\Users\\Matt\\Downloads\\CAREER-FILETWO",
+                "D:\\Projects\\Madden 26\\Sabo merge\\franchise-franchise-binary.FTC", 
+                "D:\\Projects\\Madden 26\\Sabo merge\\franchise-franchise-binaryMOD.FTC",
                 "--output", ".\\test\\frandiff.txt"
             ]
         },
